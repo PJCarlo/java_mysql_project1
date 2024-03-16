@@ -238,19 +238,7 @@ public class ForgotPassword extends JFrame {
 					} else {
 						JOptionPane.showMessageDialog(null, "Email not found.");
 					}
-					
-//					if(newUser.forgotPass()) {
-//						if (!(newPassword.getText().equals(reEnterPassword.getText()))) {
-//							JOptionPane.showMessageDialog(null, "password missmatch");
-//							
-//						} else {
-//							JOptionPane.showMessageDialog(null, "Password reset successful.");
-//						}
-//							
-//					} else {
-//		                // Password reset failed
-//			            JOptionPane.showMessageDialog(null, "Failed to reset password. Please check your email and old password.");
-//		            }
+				
 					
 		        } else {
 		            // Email or old password is empty
