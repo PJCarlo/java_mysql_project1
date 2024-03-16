@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import BusinessModel.User;
+import EntityModel.User;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -139,6 +139,10 @@ public class CreateAcc extends JFrame {
 		
 
 		JComboBox cbUserType = new JComboBox();
+		cbUserType.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		cbUserType.setModel(new DefaultComboBoxModel(new String[] {"Customer", "Employee", "Supervisor"}));
 		cbUserType.setBounds(143, 350, 236, 27);
 		contentPane.add(cbUserType);

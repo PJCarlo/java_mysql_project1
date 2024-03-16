@@ -1,4 +1,4 @@
-package BusinessModel;
+package EntityModel;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -33,6 +33,14 @@ public class User {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public User (String fname,String lname,String email,String num,String password,int type) {
+		this.fname =fname;
+		this.lname =lname;
+		this.email =email;
+		this.password =password;
+		this.mobile_no =num;
 	}
 	
 	private String user_id = "";
@@ -212,6 +220,38 @@ public class User {
 	        e3.printStackTrace();
 	    }
 	    return false;
+	}
+
+	public User[] getAllEmployee() {
+		User users[] = null;
+		try {
+	        stmt = conn.createStatement();
+	        if(stmt.execute("SELECT COUNT(*) as rowCount FROM users WHERE type = 1")) {
+	        	rs = stmt.getResultSet();
+	        	if(rs.first()) {
+	        		users = new User[rs.getInt("rowCount")];
+			        if (stmt.execute("SELECT * FROM users WHERE type = 1")) {
+			            rs = stmt.getResultSet();
+			            while(rs.next()) {
+			            		users[rs.getRow() - 1] = new User(
+			            			rs.getString("first_name"),
+			            			rs.getString("last_name"),
+			            			rs.getString("email"),
+			            			rs.getString("password"),
+			            			rs.getString("mobile_no"),
+			            			rs.getInt("type")
+			            		);
+			            }
+			        }
+	        	}
+	        	
+	        }
+	        System.out.print(rs.getFetchSize());
+	        return users;
+	    } catch (SQLException e3) {
+	        e3.getMessage();
+	    }
+		return null;
 	}
 
 }

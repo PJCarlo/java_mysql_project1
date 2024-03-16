@@ -1,4 +1,4 @@
-package BusinessModel;
+package EntityModel;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

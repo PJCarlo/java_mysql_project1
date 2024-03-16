@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
-import BusinessModel.User;
+import EntityModel.User;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

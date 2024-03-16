@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import BusinessModel.User;
+import EntityModel.User;
 
 import java.awt.Color;
 import javax.swing.JButton;
