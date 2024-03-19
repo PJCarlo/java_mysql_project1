@@ -31,10 +31,16 @@ public class SupervisorAccount extends JFrame {
 	private JMenuItem mnItmSupervisorAccount;
 	private JTable tableAssignJob;
 	private JTable tableMaterialUsed;
-	private int count = 5;
+	private JTable tablePendingRequestMaterial;
 	
-	private String[] columnassign = { "Job Number", "Description", "Estimated Time", "Estimated Materials", "Schedule Date", "Schedule Time" };
+	private String[] columnassign = { "Job Number", "Description", "Estimated Time", "Estimated Materials", "Schedule Date", "Schedule Time", "Employee Name" };
 	private DefaultTableModel jobSchedule = new DefaultTableModel();
+	
+	
+	private String[] columnSchedule = { "Customer ID", "Customer Name", "Customer Request Materil", "Date", "Schedule Time", "Cost" };
+	private DefaultTableModel Schedule = new DefaultTableModel(columnSchedule, 0);
+	
+	
 
 	/**
 	 * Launch the application.
@@ -114,6 +120,7 @@ public class SupervisorAccount extends JFrame {
 	    // Line Chart
 		
 	    JPanel panelSales = new JPanel();
+	    panelSales.setBackground(Color.LIGHT_GRAY);
 	    tabbedPane.addTab("Sales", null, panelSales, null);
 	    panelSales.setLayout(null);
 	    
@@ -121,6 +128,7 @@ public class SupervisorAccount extends JFrame {
 	    //--------------------------------------------------------------------------------------------------------------------
 
 		JPanel panelMaterialUsed = new JPanel();
+		panelMaterialUsed.setBackground(Color.LIGHT_GRAY);
 		tabbedPane.addTab("Material Used", null, panelMaterialUsed, null);
 		panelMaterialUsed.setLayout(null);
 
@@ -136,6 +144,8 @@ public class SupervisorAccount extends JFrame {
 		tableMaterialUsed.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				
 
 			}
 		});
@@ -149,6 +159,7 @@ public class SupervisorAccount extends JFrame {
 		// Panel Assign Job
 
 		JPanel panelAssignJob = new JPanel();
+		panelAssignJob.setBackground(Color.LIGHT_GRAY);
 		tabbedPane.addTab("Assign Job", null, panelAssignJob, null);
 		panelAssignJob.setLayout(null);
 
@@ -164,7 +175,11 @@ public class SupervisorAccount extends JFrame {
 		tableAssignJob.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+//				User users = new User();
+//		        User[] usersArray = users.getAllEmployee();
+//		        for (User user : usersArray) {
+//		        	jobSchedule.addRow(new Object[]{user.getFirstName(), user.getLastName(), user.getEmail()});
+//		        }
 				
 			}
 		});
@@ -177,15 +192,94 @@ public class SupervisorAccount extends JFrame {
 		btnAssign.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnAssign.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AssignJob assign = new AssignJob();
+				WorkOrderScreen assign = new WorkOrderScreen();
 				assign.setVisible(true);
-				
+					
 	            }
 	        });
 	        btnAssign.setBounds(347, 424, 89, 23);
 	        panelAssignJob.add(btnAssign);
 	        jobSchedule.setColumnIdentifiers(columnassign);
+	        
+	        
+	        
+	        
+	    //--------------------------------------------------------------------------------------------------------------------
+	    
+	        JPanel panelScheduleMonitoring = new JPanel();
+	        panelScheduleMonitoring.setBackground(Color.LIGHT_GRAY);
+			tabbedPane.addTab("Pending Request Material", null, panelScheduleMonitoring, null);
+			panelScheduleMonitoring.setLayout(null);
+			
+			JScrollPane scrollMonitoring = new JScrollPane();
+			scrollMonitoring.setBounds(10, 11, 758, 327);
+			panelScheduleMonitoring.add(scrollMonitoring);
+			
+			
+			// Add default values to the table model
+			Object[] defaultRow1 = {"J31F5", "adsasd", "SAMPLE", "3/20/2024", "8:30 AM", "13,000"};
+			Object[] defaultRow2 = {"J1TF5", "qweqwe", "SAMPLE", "3/21/2024", "7:30 AM", "11,700"};
 
+			tablePendingRequestMaterial = new JTable(Schedule) {
+			    public boolean editCellAt(int row, int column, java.util.EventObject e) {
+			        return false;
+			    }
+			};
+
+			// Add this line to set the table model
+			tablePendingRequestMaterial.setModel(Schedule);
+
+			Schedule.addRow(defaultRow1);
+			Schedule.addRow(defaultRow2);
+
+			tablePendingRequestMaterial.addMouseListener(new MouseAdapter() {
+			    @Override
+			    public void mouseClicked(MouseEvent e) {
+
+			    }
+			});
+			tablePendingRequestMaterial.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			tablePendingRequestMaterial.setFocusable(false);
+			scrollMonitoring.setViewportView(tablePendingRequestMaterial);
+			Schedule.setColumnIdentifiers(columnSchedule);
+			
+			
+			
+			
+			
+			
+			
+			
+//			
+//			 // Add default values to the table model
+//	        Object[] defaultRow1 = {"J31F5", "adsasd", "SAMPLE", "3/20/2024", "8:30 AM", "13,000"};
+//	        Object[] defaultRow2 = {"J1TF5", "qweqwe", "SAMPLE", "3/21/2024", "7:30 AM", "11,700"};
+//			
+//
+//			tablePendingRequestMaterial = new JTable(Schedule) {
+//				public boolean editCellAt(int row, int column, java.util.EventObject e) {
+//					return false;
+//				}
+//			};
+//			
+//			
+//			Schedule.addRow(defaultRow1);
+//			Schedule.addRow(defaultRow2);
+//			
+//			
+//			
+//			tablePendingRequestMaterial.addMouseListener(new MouseAdapter() {
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					        
+//					
+//				        
+//				}
+//			});
+//			tablePendingRequestMaterial.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//			tablePendingRequestMaterial.setFocusable(false);
+//			scrollMonitoring.setViewportView(tablePendingRequestMaterial);
+//			Schedule.setColumnIdentifiers(columnSchedule);
 		    
 	    }
 	

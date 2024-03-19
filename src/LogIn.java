@@ -26,8 +26,6 @@ public class LogIn extends JFrame {
 	private JTextField userText;
 	private JPasswordField passText;
 	
-//	Connection conn = null;
-	
 	User newUser = new User();
 	
 	
@@ -209,9 +207,12 @@ public class LogIn extends JFrame {
 								EmployeeAccount employeeAccount = new EmployeeAccount();
 								employeeAccount.setVisible(true);
 								dispose();
-							}
-						} else {
+							} else if(newUser.getType() == 0) {
+								CustomerAccount customerAccount = new CustomerAccount();
+								customerAccount.setVisible(true);
+							} else {
 							JOptionPane.showMessageDialog(null,"Login failed!");
+							}
 						}
 						
 					}
@@ -219,6 +220,7 @@ public class LogIn extends JFrame {
 				userText.setText(null);
 				passText.setText(null);
 				userText.requestFocus();
+				dispose();
 			}
 		});
 		btnLogIn.setBounds(111, 218, 89, 23);

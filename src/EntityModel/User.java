@@ -1,17 +1,11 @@
 package EntityModel;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.util.UUID;
-
-import javax.swing.JOptionPane;
-
 import java.sql.ResultSet;
 
 
@@ -43,13 +37,31 @@ public class User {
 		this.mobile_no =num;
 	}
 	
-	private String user_id = "";
+	public User (int user_id, String fname,String lname,String email,String num,String password,int type) {
+		this.user_id = user_id;
+		this.fname =fname;
+		this.lname =lname;
+		this.email =email;
+		this.password =password;
+		this.mobile_no =num;
+	}
+	
+	private int user_id = 0;
 	private String fname = "";
 	private String lname = "";
 	private String email = "";
 	private String password = "";
 	private String mobile_no = "";
 	private int type = 0; // 0 = customer, 1 = employee, 2 = supervisor
+
+	
+	public int getUserID() {
+		return this.user_id;
+	}
+	public void setUserID(int val) {
+		this.user_id = val;
+	}
+	
 	
 	public String getEmail() {
 		return this.email;
@@ -155,6 +167,7 @@ public class User {
 		}
 	}
 	
+	
 	public boolean verifyEmail(String email) {
 		boolean return_val = false;
 		try {
@@ -175,6 +188,7 @@ public class User {
 		return return_val;
 	}
 	
+	
 	public boolean changePassword() {
 		boolean return_val = false;
 		try {
@@ -182,8 +196,8 @@ public class User {
 			 prepStmt = conn.prepareStatement(qry);
 			 prepStmt.setString(1, getPassword());
 			 prepStmt.setString(2, getEmail());
-			 int r = prepStmt.executeUpdate();
-			 if(r > 0) {
+			 int row = prepStmt.executeUpdate();
+			 if(row > 0) {
 				 return true;
 			 }
 	    } catch (SQLException e3) {
@@ -192,38 +206,9 @@ public class User {
 		return return_val;
 	}
 
-	public boolean forgotPass() {
-	    try {
-	        stmt = conn.createStatement();
-	        if (stmt.execute("SELECT * FROM users WHERE email = '" + this.getEmail() + "'")) {
-	            rs = stmt.getResultSet();
-	            if (rs.first()) {
-	            	
-	                // Generate a temporary password
-	                String temporaryPassword = UUID.randomUUID().toString().substring(0, 8);
-	                
-	                // Update the database with the temporary password
-	                int rowsUpdate = stmt.executeUpdate("UPDATE users SET password = '" + temporaryPassword + "' WHERE email = '" + this.getEmail() + "'");
-	                
-	                if (rowsUpdate > 0) {
-	                    // Send the temporary password to the user's
-	                    JOptionPane.showMessageDialog(null, "Your Temporary Password is: " + temporaryPassword);
-	                    System.out.println("Temporary password sent to your email.");
-	                } else {
-	                    System.out.println("Failed to update password.");
-	                }
-	            } else {
-	                System.out.println("User with this email doesn't exist.");
-	            }
-	        }
-	    } catch (SQLException e3) {
-	        e3.printStackTrace();
-	    }
-	    return false;
-	}
 
 	public User[] getAllEmployee() {
-		User users[] = null;
+		User[] users = null;
 		try {
 	        stmt = conn.createStatement();
 	        if(stmt.execute("SELECT COUNT(*) as rowCount FROM users WHERE type = 1")) {
@@ -234,6 +219,7 @@ public class User {
 			            rs = stmt.getResultSet();
 			            while(rs.next()) {
 			            		users[rs.getRow() - 1] = new User(
+			            			rs.getInt("user_id"),
 			            			rs.getString("first_name"),
 			            			rs.getString("last_name"),
 			            			rs.getString("email"),
@@ -246,7 +232,6 @@ public class User {
 	        	}
 	        	
 	        }
-	        System.out.print(rs.getFetchSize());
 	        return users;
 	    } catch (SQLException e3) {
 	        e3.getMessage();

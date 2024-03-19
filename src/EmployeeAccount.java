@@ -26,8 +26,8 @@ public class EmployeeAccount extends JFrame {
 	private JTable tableScheduledJob;
 	private JTable tableTimeandDelays;
 	private JTable tableTimeCards;
-	private String[] columnschedule = { "Job Number", "Description", "Estimated Time", "Estimated Materials", "Schedule Date", "Schedule Time" };
-	private String[] timedelays = { "Calculated Time", "Time Delay" };
+	private String[] columnschedule = { "Job Number", "Description", "Estimated Time", "Estimated Materials", "Schedule Date", "Schedule Time", "Employee Name" };
+	private String[] timedelays = { "Job Number", "Employee Name", "Calculated Time", "Time Delay", "Date" };
 	private String[] timecards = { "Date", "Start Time", "Total Break Time (Min)", "Final Time", };
 	private DefaultTableModel scheduledjob = new DefaultTableModel();
 	private DefaultTableModel calctimedelays = new DefaultTableModel();

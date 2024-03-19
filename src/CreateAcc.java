@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.sql.Connection;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -27,9 +26,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 public class CreateAcc extends JFrame {
-    
-    private static String EmailRegex =  "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-    private static Pattern pattern = Pattern.compile(EmailRegex);
+  
 
 	private JPanel contentPane;
 	private JTextField textFieldFirstName;
@@ -172,6 +169,7 @@ public class CreateAcc extends JFrame {
 				else {
 					JOptionPane.showMessageDialog(null,"Password mismatch!");
 				}
+				dispose();
 			}
 		});
 		btnCreate.setBounds(98, 525, 89, 23);

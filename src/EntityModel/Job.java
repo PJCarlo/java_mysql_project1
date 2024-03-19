@@ -26,18 +26,18 @@ public class Job {
 		}
 	}
 	
-	public Job(int id, String title, String descr) {
+	public Job(String id, String title, String descr) {
 		this.id = id;
 		this.title = title;
 		this.description = descr;
 	}
 	
-	private int id;
+	private String id;
 	private String title;
 	private String description;
 	
 	//GETTER PROPERTIES
-	public int getID() {
+	public String getID() {
 		return this.id;
 	}
 	
@@ -51,7 +51,7 @@ public class Job {
 	
 	//SETTER PROPERTIES
 	
-	public void setID(int val) {
+	public void setID(String val) {
 		this.id = val;
 	}
 	
@@ -67,17 +67,19 @@ public class Job {
 	
 	public int createJob() {
 		try {
-			String query = "INSERT INTO job (title, description) VALUES(?,?)";
+			String query = "INSERT INTO job (id, title, description) VALUES(?,?,?)";
 			prepStmt = conn.prepareStatement(query);
-			prepStmt.setString(1, this.getTitle());
-			prepStmt.setString(2, this.getDesc());
+			prepStmt.setString(1, this.getID());
+			prepStmt.setString(2, this.getTitle());
+			prepStmt.setString(3, this.getDesc());
 			int row = prepStmt.executeUpdate();
 			return row;
-		} catch (SQLException ex) {
+		} catch (SQLException e1) {
 			
 		}
 		return 0;
 	}
+	
 	
 	public Job[] getAllJobs() {
 		Job jobs[] = null;
@@ -91,7 +93,7 @@ public class Job {
 			            rs = stmt.getResultSet();
 			            while(rs.next()) {
 			            	jobs[rs.getRow() - 1] = new Job(
-			            			rs.getInt("id"),
+			            			rs.getString("id"),
 			            			rs.getString("title"),
 			            			rs.getString("description")
 			            		);
@@ -102,8 +104,8 @@ public class Job {
 	        }
 	        System.out.print(rs.getFetchSize());
 	        return jobs;
-	    } catch (SQLException e3) {
-	        e3.getMessage();
+	    } catch (SQLException e2) {
+	        e2.getMessage();
 	    }
 		return null;
 	}

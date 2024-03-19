@@ -4,7 +4,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -13,16 +16,29 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 public class CustomerAccount extends JFrame {
+	
+	//private String pending = {};
 
 	private JPanel contentPane;
 	private JMenuItem mnItmLogOut;
 	private JMenuItem mnItmCustomerAccount;
-	private JTable tableAssignJob;
+	private JTable tableSchedule;
+	private JTable tableInfo;
+	
+	private String[] columnSchedule = { "Customer ID", "Customer Name", "Customer Request Materil", "Date", "Schedule Time", "Cost" };
+	private DefaultTableModel Schedule = new DefaultTableModel();
+	
+	
+	ScheduleMaterial schedule = new ScheduleMaterial();
+	
 
 	/**
 	 * Launch the application.
@@ -112,49 +128,139 @@ public class CustomerAccount extends JFrame {
 		panelToUsedMaterial.add(lblMaterial3);
 
 		JLabel lblMaterial4 = new JLabel("New label");
-		lblMaterial4.setBounds(10, 292, 208, 124);
+		lblMaterial4.setBounds(10, 267, 208, 124);
 		panelToUsedMaterial.add(lblMaterial4);
 
 		JLabel lblMaterial5 = new JLabel("New label");
-		lblMaterial5.setBounds(288, 292, 208, 124);
+		lblMaterial5.setBounds(288, 267, 208, 124);
 		panelToUsedMaterial.add(lblMaterial5);
 
 		JLabel lblMaterial6 = new JLabel("New label");
-		lblMaterial6.setBounds(564, 292, 208, 124);
+		lblMaterial6.setBounds(564, 267, 208, 124);
 		panelToUsedMaterial.add(lblMaterial6);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
-		rdbtnNewRadioButton.setBounds(10, 142, 109, 23);
-		panelToUsedMaterial.add(rdbtnNewRadioButton);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("New radio button");
-		rdbtnNewRadioButton_1.setBounds(288, 142, 109, 23);
-		panelToUsedMaterial.add(rdbtnNewRadioButton_1);
 		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("New radio button");
-		rdbtnNewRadioButton_2.setBounds(564, 142, 109, 23);
-		panelToUsedMaterial.add(rdbtnNewRadioButton_2);
+		ButtonGroup rdoMaterials = new ButtonGroup();
 		
-		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("New radio button");
-		rdbtnNewRadioButton_3.setBounds(10, 423, 109, 23);
-		panelToUsedMaterial.add(rdbtnNewRadioButton_3);
 		
-		JRadioButton rdbtnNewRadioButton_4 = new JRadioButton("New radio button");
-		rdbtnNewRadioButton_4.setBounds(288, 423, 109, 23);
-		panelToUsedMaterial.add(rdbtnNewRadioButton_4);
+		JRadioButton rdbtnMaterial1 = new JRadioButton("New radio button");
+		rdbtnMaterial1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				schedule.setVisible(true);
+			}
+		});
+		rdbtnMaterial1.setBounds(10, 142, 109, 23);
+		panelToUsedMaterial.add(rdbtnMaterial1);
 		
-		JRadioButton rdbtnNewRadioButton_5 = new JRadioButton("New radio button");
-		rdbtnNewRadioButton_5.setBounds(564, 423, 109, 23);
-		panelToUsedMaterial.add(rdbtnNewRadioButton_5);
+		JRadioButton rdbtnMaterial2 = new JRadioButton("New radio button");
+		rdbtnMaterial2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				schedule.setVisible(true);
+			}
+		});
+		rdbtnMaterial2.setBounds(288, 142, 109, 23);
+		panelToUsedMaterial.add(rdbtnMaterial2);
+		
+		JRadioButton rdbtnMaterial3 = new JRadioButton("New radio button");
+		rdbtnMaterial3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				schedule.setVisible(true);
+			}
+		});
+		rdbtnMaterial3.setBounds(564, 142, 109, 23);
+		panelToUsedMaterial.add(rdbtnMaterial3);
+		
+		JRadioButton rdbtnMaterial4 = new JRadioButton("New radio button");
+		rdbtnMaterial4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				schedule.setVisible(true);
+			}
+		});
+		rdbtnMaterial4.setBounds(10, 398, 109, 23);
+		panelToUsedMaterial.add(rdbtnMaterial4);
+		
+		JRadioButton rdbtnMaterial5 = new JRadioButton("New radio button");
+		rdbtnMaterial5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				schedule.setVisible(true);
+			}
+		});
+		rdbtnMaterial5.setBounds(288, 398, 109, 23);
+		panelToUsedMaterial.add(rdbtnMaterial5);
+		
+		JRadioButton rdbtnMaterial6 = new JRadioButton("New radio button");
+		rdbtnMaterial6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				schedule.setVisible(true);
+			}
+		});
+		rdbtnMaterial6.setBounds(564, 398, 109, 23);
+		panelToUsedMaterial.add(rdbtnMaterial6);
+		
+		
+		rdoMaterials.add(rdbtnMaterial1);
+		rdoMaterials.add(rdbtnMaterial2);
+		rdoMaterials.add(rdbtnMaterial3);
+		rdoMaterials.add(rdbtnMaterial4);
+		rdoMaterials.add(rdbtnMaterial5);
+		rdoMaterials.add(rdbtnMaterial6);
+		
+		
+		//---------------------------------------------------------------------------------------------------------------------
 		
 
-		JPanel panelddOrder = new JPanel();
-		tabbedPane.addTab("Pending Request Material", null, panelddOrder, null);
-		panelddOrder.setLayout(null);
+		JPanel panelSchedule = new JPanel();
+		tabbedPane.addTab("Pending Request Material", null, panelSchedule, null);
+		panelSchedule.setLayout(null);
+		
+		JScrollPane scrollSchedule = new JScrollPane();
+		scrollSchedule.setBounds(10, 11, 758, 388);
+		panelSchedule.add(scrollSchedule);
 
-		JPanel panelOrderInfo = new JPanel();
-		tabbedPane.addTab("Order Information", null, panelOrderInfo, null);
-		panelOrderInfo.setLayout(null);
+		tableSchedule = new JTable(Schedule) {
+			public boolean editCellAt(int row, int column, java.util.EventObject e) {
+				return false;
+			}
+		};
+		tableSchedule.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+			}
+		});
+		tableSchedule.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableSchedule.setFocusable(false);
+		scrollSchedule.setViewportView(tableSchedule);
+		Schedule.setColumnIdentifiers(columnSchedule);
+		
+		
+		//--------------------------------------------------------------------------------------------------------------------
+		
+
+		JPanel panelInfo = new JPanel();
+		tabbedPane.addTab("Order Information", null, panelInfo, null);
+		panelInfo.setLayout(null);
+		
+		JScrollPane scrollCustomerInfo = new JScrollPane();
+		scrollCustomerInfo.setBounds(10, 11, 758, 388);
+		panelInfo.add(scrollCustomerInfo);
+
+		tableInfo = new JTable(Schedule) {
+			public boolean editCellAt(int row, int column, java.util.EventObject e) {
+				return false;
+			}
+		};
+		tableInfo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+			}
+		});
+		tableInfo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableInfo.setFocusable(false);
+		scrollCustomerInfo.setViewportView(tableInfo);
+		Schedule.setColumnIdentifiers(columnSchedule);
 
 	}
 
